@@ -9,6 +9,8 @@ import type { WebMCPTool } from "./tool.js";
 export type InspectorEvent =
   | ToolRegisteredEvent
   | ToolUnregisteredEvent
+  | ToolRegisterErrorEvent
+  | ToolUnregisterErrorEvent
   | ContextClearedEvent
   | SessionCreatedEvent
   | PromptSentEvent
@@ -31,6 +33,28 @@ export interface ToolRegisteredEvent {
 export interface ToolUnregisteredEvent {
   type: "TOOL_UNREGISTERED";
   name: string;
+  ts: number;
+}
+
+/**
+ * Fired when `registerTool()` throws an `InvalidStateError` — e.g. duplicate
+ * tool name or empty name/description (per the formalized spec algorithm).
+ */
+export interface ToolRegisterErrorEvent {
+  type: "TOOL_REGISTER_ERROR";
+  name: string;
+  error: string;
+  ts: number;
+}
+
+/**
+ * Fired when `unregisterTool()` throws an `InvalidStateError` — e.g. the
+ * tool name does not exist in the model context's tool map.
+ */
+export interface ToolUnregisterErrorEvent {
+  type: "TOOL_UNREGISTER_ERROR";
+  name: string;
+  error: string;
   ts: number;
 }
 

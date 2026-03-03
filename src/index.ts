@@ -22,6 +22,8 @@ export type {
   InspectorEvent,
   ToolRegisteredEvent,
   ToolUnregisteredEvent,
+  ToolRegisterErrorEvent,
+  ToolUnregisterErrorEvent,
   ContextClearedEvent,
   SessionCreatedEvent,
   PromptSentEvent,

@@ -59,13 +59,24 @@ export interface WebMCPTool {
 /**
  * A tool as returned by `navigator.modelContextTesting.listTools()`.
  *
- * Per the WebIDL spec, `inputSchema` is a `DOMString` — the JSON-stringified
- * schema, NOT a parsed object. This is important: consumers must `JSON.parse()`
- * it before using it as a schema object (e.g., when passing to MCP clients).
+ * Maps to the spec's "tool definition" struct which has five fields:
+ * name, description, input schema (DOMString), execute steps, and
+ * read-only hint (boolean, initially false).
+ *
+ * `inputSchema` is a `DOMString` — the JSON-stringified schema, NOT a
+ * parsed object. Consumers must `JSON.parse()` it before using it as a
+ * schema object (e.g., when passing to MCP clients).
  */
 export interface DiscoveredTool {
   name: string;
   description: string;
   /** JSON-stringified input schema (DOMString per WebMCP spec) */
   inputSchema: string;
+  /**
+   * Per the spec's tool definition struct, `readOnlyHint` is a top-level
+   * boolean (initially false) extracted from `annotations.readOnlyHint`
+   * during `registerTool()`. The browser's `listTools()` may surface it
+   * directly on each tool.
+   */
+  readOnlyHint?: boolean;
 }
