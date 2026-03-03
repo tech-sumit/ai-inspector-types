@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.4.0 (2026-03-04)
+
+### Features
+
+- **`readOnlyHint` on `DiscoveredTool`**: Added optional `readOnlyHint?: boolean` field to the `DiscoveredTool` interface, matching the spec's formalized tool definition struct where `readOnlyHint` is promoted from annotations to a top-level field
+- **`ToolRegisterErrorEvent`**: New event type emitted when `registerTool()` throws `InvalidStateError` (duplicate tool name or empty name/description)
+- **`ToolUnregisterErrorEvent`**: New event type emitted when `unregisterTool()` throws `InvalidStateError` (tool name not found)
+- **`prepare` script**: Added `tsup` as `prepare` script so the package auto-builds when installed from GitHub URLs
+
+### Spec alignment
+
+- `DiscoveredTool` JSDoc updated to reference the spec's formalized "tool definition" struct with five fields: name, description, input schema (DOMString), execute steps, and read-only hint (boolean, initially false)
+- Error event types align with the spec's formalized `registerTool()` and `unregisterTool()` algorithms which now throw `InvalidStateError` on validation failures
+
 ## 0.2.0 (2026-02-17)
 
 ### Features
